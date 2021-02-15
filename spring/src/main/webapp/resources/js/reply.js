@@ -91,7 +91,7 @@ $(document).ready(function(){
 			e.preventDefault();
 			var reply=$(this).parent();
 			rno=reply.attr("data-rno");
-			//실제 tbl_reply 테이블에 delete하기
+			//실제 reply 테이블에 delete하기
 			$.ajax({
 				type:"delete",
 				url:"/replies/delete",

@@ -45,7 +45,7 @@
 										placeholder="내용을 입력해주세요"></textarea>
 								</div>
 								<input type="file" name="uploadFile" multiple> 
-								<input type="text" name="category" value="4" readonly>
+								<input type="hidden" name="category" value="4" readonly>
 								<hr>
 								<input type="submit" class="btn btn-primary btn-user btn-block"
 									value="작성하기">
