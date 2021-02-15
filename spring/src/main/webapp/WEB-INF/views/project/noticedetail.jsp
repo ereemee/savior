@@ -71,10 +71,23 @@
 										</tr>
 
 										<tr>
-											<td colspan="2" class="text-center"><input type="submit"
+										
+										<c:choose>
+							<c:when test="${id!=null}">
+								<td colspan="2" class="text-center"><input type="submit"
 												class="nav-item btn btn-primary" value="삭제하기"> <a
 												class="nav-item btn btn-primary" href="noticelist?category=4">목록으로</a>
 											</td>
+							</c:when>
+							<c:otherwise>
+								<a class="nav-item btn btn-primary" href="login">로그인</a>&nbsp;&nbsp;
+							</c:otherwise>
+
+						</c:choose>
+						
+						
+						
+											
 										</tr>
 									</tbody>
 
