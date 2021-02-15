@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.lhr.mapper.BoardAttachMapper">
+
+      <insert id="insert">
+      
+      insert into board_attach
+      values (#{uuid},#{uploadPath},#{fileName},#{no})
+      
+      </insert>
+      
+      <select id="showImg" resultType="org.lhr.DTO.BoardAttachDTO">
+         select * from board_attach where no=#{no}
+      </select>
+
+</mapper>

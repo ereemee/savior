@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lhr.mapper.PJmemberMapper">
+
+
+	<select id="memberlist" resultType="org.lhr.DTO.PJmemberDTO">
+		select *
+		from(
+		select @rownum:=@rownum+1 as rownum, b.*
+		from(select @rownum:=0) as tmp, member as b
+		<if test='type=="i"'>
+			where id like concat('%',#{keyword},'%')
+		</if>
+		<if test='type=="a"'>
+			where email like concat('%',#{keyword},'%')
+		</if>
+		order by id asc
+		) as paging
+					<![CDATA[where rownum>(#{pageNum}-1)*#{amount} and rownum<=#{pageNum}*#{amount}]]>
+
+	</select>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from member	</select>
+
+	<select id="login" resultType="org.lhr.DTO.PJmemberDTO">
+		select id, password from member where id=#{id} and password=#{password};
+	</select>
+
+	<select id="memberdetail" resultType="org.lhr.DTO.PJmemberDTO">
+		select * from member where id=#{id};
+	</select>
+
+	<update id="memberupdate">
+		update member set pnumb=#{pnumb},email=#{email},password=#{password} where
+		id=#{id};
+	</update>
+
+	<delete id="memberdelete">
+		delete from member where id=#{id};
+	</delete>
+
+	<insert id="memberinsert">
+		insert into member (id,password,name,email,pnumb)
+		values(#{id},#{password},#{name},#{email},#{pnumb});
+	</insert>
+
+</mapper>
+  

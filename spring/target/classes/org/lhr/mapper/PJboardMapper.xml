@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lhr.mapper.PJboardMapper">
+
+	<!-- 글쓰기 -->
+	<insert id="boardwrite">
+		<selectKey keyProperty="no" order="BEFORE" resultType="int">
+			select max(no)+1 no from board
+		</selectKey>
+		insert into board (title,contents,category,writer)
+		values(#{title},#{contents},#{category},#{writer});
+	</insert>
+
+	<select id="boardlist" resultType="org.lhr.DTO.PJboardDTO">
+		select *
+		from(
+		select @rownum:=@rownum+1 as rownum, b.*
+		from(select
+		@rownum:=0) as tmp, board as b
+		<if test='type == "t"'>
+			where title like concat('%',#{keyword},'%')
+		</if>
+		<if test='type == "w"'>
+			where writer like concat('%',#{keyword},'%')
+		</if>
+		order by no desc
+		) as pagingboard
+		<![CDATA[where rownum>(#{pageNum}-1)*#{amount} and rownum<=#{pageNum}*#{amount}]]>
+		and category=#{category};
+
+	</select>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from board
+		where category=#{category};
+	</select>
+
+
+
+	<select id="boarddetail" resultType="org.lhr.DTO.PJboardDTO">
+		select * from board where
+		no=#{no};
+
+	</select>
+
+
+	<update id="boardupdate">
+		update board set title=#{title}, contents=#{contents}
+		where no=#{no};
+	</update>
+
+
+
+	<delete id="boarddelete">
+		delete from board where no=#{no};
+	</delete>
+
+
+
+	<!-- 게시판 조회수 -->
+	<update id="boardhit" parameterType="int">
+		update board SET
+		hit = hit+1
+		WHERE no=#{no};
+	</update>
+
+</mapper>
