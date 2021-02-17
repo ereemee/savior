@@ -15,3 +15,5 @@
 ![6](https://user-images.githubusercontent.com/73235939/108179340-da5c5400-7148-11eb-90af-46a90201bd48.png)
 ###07.입양후기글 상세페이지
 ![7](https://user-images.githubusercontent.com/73235939/108179346-dc261780-7148-11eb-8205-a34fe917deb1.png)
+
+
